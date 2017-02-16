@@ -106,7 +106,7 @@ void interrupts_init(void)
     // Prescaler is set to 256 for Timer/Counter-1
     TCCR1B |= (1 << CS12) | (1 << WGM12);
     // 16us*6250 = 100ms for Timer/Counter-1
-    OCR1A = 3125;
+    OCR1A = 6250;
     TIMSK |= _BV(OCIE1A);
 
     // Prescaler is set to 256 for Timer/Counter-3
