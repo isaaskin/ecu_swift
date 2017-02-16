@@ -10,10 +10,6 @@ int main(void)
 
     while(1)
     {
-        PORTB |= _BV(PORTB4);
-        _delay_ms(50);
-        PORTB &= ~_BV(PORTB4);
-        _delay_ms(50);
     };
 
     return 0;
