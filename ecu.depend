@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1486938609 source:c:\ee443\ecu\main.c
+	<avr/io.h>
+	<util/delay.h>
+
+1486936277 source:c:\ee443\ecu\display.c
+	<avr/io.h>
+	"logo.h"
+	<util/delay.h>
+	"arial_bold_14.h"
+
+1486938899 c:\ee443\ecu\logo.h
+	<avr/pgmspace.h>
+
+1486931840 source:c:\ee443\ecu\lcd_driver_ks0107.c
+	"lcd_driver_KS0107.h"
+	<util/delay.h>
+	<avr/pgmspace.h>
+	<avr/io.h>
+	"font5x7.h"
+
+1486894146 c:\ee443\ecu\lcd_driver_ks0107.h
+	<inttypes.h>
+	<avr/io.h>
+
+1486933308 c:\ee443\ecu\font5x7.h
+
+1486938366 source:c:\ee443\ecu\lcd_graphics.c
+	<avr/pgmspace.h>
+	"lcd_graphics.h"
+	"lcd_driver_KS0107.h"
+
+1218031844 c:\ee443\ecu\lcd_graphics.h
+	<inttypes.h>
+
+1486852053 source:c:\ee443\ecu\config.c
+	<avr/io.h>
+	<avr/interrupt.h>
+
+1486938541 source:c:\ee443\ecu\core.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+
+1218031844 c:\ee443\ecu\arial_bold_14.h
+	<inttypes.h>
+	<avr/pgmspace.h>
+
