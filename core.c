@@ -107,14 +107,12 @@ void interrupts_init(void)
     TCCR1B |= (1 << CS12) | (1 << WGM12);
     // 16us*6250 = 100ms for Timer/Counter-1
     OCR1A = 6250;
-    // 16us*3125 = 50ms for Timer/Counter-1
     TIMSK |= _BV(OCIE1A);
 
     // Prescaler is set to 256 for Timer/Counter-3
     TCCR3B |= (1 << CS32) | (1 << WGM32);
     // 16us*625 = 10ms for Timer/Counter-3
     OCR3A = 625;
-    // 16us*3125 = 50ms for Timer/Counter-3
     //ETIMSK |= _BV(OCIE3A);
 
     // External interrupt for INT5

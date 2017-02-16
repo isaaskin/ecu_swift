@@ -46,3 +46,46 @@
 	<inttypes.h>
 	<avr/pgmspace.h>
 
+1486852053 source:c:\git\ecu_swift\config.c
+	<avr/io.h>
+	<avr/interrupt.h>
+
+1486938541 source:c:\git\ecu_swift\core.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+
+1487242527 source:c:\git\ecu_swift\display.c
+	<avr/io.h>
+	"logo.h"
+	<util/delay.h>
+	"arial_bold_14.h"
+
+1486938899 c:\git\ecu_swift\logo.h
+	<avr/pgmspace.h>
+
+1218031844 c:\git\ecu_swift\arial_bold_14.h
+	<inttypes.h>
+	<avr/pgmspace.h>
+
+1486931840 source:c:\git\ecu_swift\lcd_driver_ks0107.c
+	"lcd_driver_KS0107.h"
+	<util/delay.h>
+	<avr/pgmspace.h>
+	<avr/io.h>
+	"font5x7.h"
+
+1486894146 c:\git\ecu_swift\lcd_driver_ks0107.h
+	<inttypes.h>
+	<avr/io.h>
+
+1486933308 c:\git\ecu_swift\font5x7.h
+
+1486938366 source:c:\git\ecu_swift\lcd_graphics.c
+	<avr/pgmspace.h>
+	"lcd_graphics.h"
+	"lcd_driver_KS0107.h"
+
+1218031844 c:\git\ecu_swift\lcd_graphics.h
+	<inttypes.h>
+
