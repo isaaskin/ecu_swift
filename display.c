@@ -2,6 +2,18 @@
 #include "logo.h"
 #include <util/delay.h>
 #include "arial_bold_14.h"
+#include <stdlib.h>
+
+
+char text[10];
+float a = 4.45;
+
+void gui_test(void)
+{
+    sprintf(text,"%.2f", a);
+    LCD_setCursorXY(10,30);
+    LCD_puts(text);
+}
 
 void gui_init(void)
 {
@@ -24,6 +36,8 @@ void gui_init(void)
     gui_lpg(73);
     gui_coolant_water(50);
     gui_battery_voltage(40);
+    gui_oil(1);
+    gui_fan(1);
 }
 
 void gui_logo(void)
@@ -35,39 +49,54 @@ void gui_mainstream(void)
 
 }
 
-
-
 void gui_parklight(unsigned char value)
 {
     if (value)
-        LCD_drawBMP(light,0,0,20,20);
+        LCD_drawBMP(light,4,0,20,20);
     else
-        LCD_clearRect(0,0,20,20);
+        LCD_clearRect(4,0,24,20);
 }
 
 void gui_door_open(unsigned char value)
 {
     if (value)
-        LCD_drawBMP(door,20,0,20,20);
+        LCD_drawBMP(door,24,0,20,20);
     else
-        LCD_clearRect(20,0,40,20);
+        LCD_clearRect(24,0,44,20);
 }
 
 void gui_alternator(unsigned char value)
 {
     if (value)
-        LCD_drawBMP(battery,40,0,20,20);
+        LCD_drawBMP(battery,64,0,20,20);
     else
-        LCD_clearRect(40,0,60,20);
+        LCD_clearRect(64,0,84,20);
 }
 
 void gui_handbrake(unsigned char value)
 {
     if (value)
-        LCD_drawBMP(park,60,0,20,20);
+        LCD_drawBMP(park,44,0,20,20);
     else
-        LCD_clearRect(60,0,80,20);
+        LCD_clearRect(44,0,64,20);
 }
+
+void gui_oil(unsigned char value)
+{
+   if (value)
+        LCD_drawBMP(oil,84,0,20,20);
+    else
+        LCD_clearRect(84,0,104,20);
+}
+
+void gui_fan(unsigned char value)
+{
+   if (value)
+        LCD_drawBMP(fan,104,0,20,20);
+    else
+        LCD_clearRect(104,0,124,20);
+}
+
 
 void gui_lpg(unsigned char value)
 {
@@ -106,3 +135,4 @@ void gui_battery_voltage(unsigned char value)
     LCD_setCursorXY(50,63);
     LCD_puts("12.4V");
 }
+

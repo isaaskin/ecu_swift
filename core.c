@@ -24,7 +24,7 @@
 
 // declares values
 unsigned char val_parklight = 0;
-unsigned char val_parklight_last = 1;
+unsigned char val_parklight_last = 0;
 unsigned char val_frontleft = 0;
 unsigned char val_frontleft_last = 1;
 unsigned char val_frontright = 0;
@@ -69,8 +69,10 @@ void check_doors_indicator(void);
 void check_alternator(void);
 void check_handbrake(void);
 
+
 ISR(TIMER1_COMPA_vect)
 {
+
     PORTB |= TIMEMARKER1;
     read_values();
     check_parklight();
@@ -201,9 +203,9 @@ void check_doors(void)
     if (val_baggage != val_baggage_last)
     {
         if (val_baggage == BAGGAGE)
-            gui_door_open(1);
+            check_doors_indicator();
         else
-            gui_door_open(0);
+            check_doors_indicator();
     }
 }
 

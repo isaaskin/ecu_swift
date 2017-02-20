@@ -6,7 +6,7 @@ int main(void)
     ports_init();
     gui_init();
     interrupts_init();
-
+    //gui_test();
 
     while(1)
     {
