@@ -4,9 +4,10 @@
 #include "arial_bold_14.h"
 #include <stdlib.h>
 
-
 char text[10];
 float a = 4.45;
+
+char text_battery [8];
 
 void gui_test(void)
 {
@@ -32,12 +33,7 @@ void gui_init(void)
     LCD_putgstr("5'C",Arial_Bold_14, 14+10,24);
 
     LCD_setCursorXY(68+10,32);
-    LCD_puts("27'C");
-    gui_lpg(73);
-    gui_coolant_water(50);
-    gui_battery_voltage(40);
-    gui_oil(1);
-    gui_fan(1);
+    //LCD_puts("27'C");
 }
 
 void gui_logo(void)
@@ -46,7 +42,6 @@ void gui_logo(void)
 
 void gui_mainstream(void)
 {
-
 }
 
 void gui_parklight(unsigned char value)
@@ -97,42 +92,55 @@ void gui_fan(unsigned char value)
         LCD_clearRect(104,0,124,20);
 }
 
-
-void gui_lpg(unsigned char value)
+// 8 bit input value
+// Battery voltage level
+void gui_battery_voltage(unsigned char value)
 {
-    unsigned char i=0;
-
-    value = 0.3 * value;
-
-    for (i=0;i<value;i++)
-    {
-        if (i%2 == 0)
-            LCD_drawLine(0,53-i,12,53-i);
-    }
-
-    LCD_setCursorXY(0,63);
-    LCD_puts("73%");
+    double val = ((double)value/255)*12;
+    sprintf(text_battery, "%.2fV", val);
+    LCD_clearRect(48,56,88,64);
+    LCD_setCursorXY(48,63);
+    LCD_puts(text_battery);
 }
 
-void gui_coolant_water(unsigned char value)
+// 8 bit input value
+// Coolant water temp value
+void gui_cts(unsigned char value)
 {
     unsigned char i=0;
 
-    value = 0.3 * value;
+    value = (value+1) / 16;
+
+    LCD_clearRect(115,23,127,53);
 
     for (i=0;i<value;i++)
     {
-        if (i%2 == 0)
-            LCD_drawLine(115,53-i,127,53-i);
+        LCD_drawLine(115,53-i*2,126,53-i*2);
     }
 
     LCD_setCursorXY(105,63);
     LCD_puts("90'C");
 }
 
-void gui_battery_voltage(unsigned char value)
+// 8 bit input value
+// LPG level
+void gui_lpg_level(unsigned char value)
 {
-    LCD_setCursorXY(50,63);
-    LCD_puts("12.4V");
+    unsigned char i=0;
+
+    value = (value+1) / 16;
+
+    LCD_clearRect(1,53,13,23);
+
+    for (i=0;i<value;i++)
+    {
+        LCD_drawLine(1,53-i*2,12,53-i*2);
+    }
+
+    LCD_setCursorXY(0,63);
+    LCD_puts("73%");
 }
+
+
+
 

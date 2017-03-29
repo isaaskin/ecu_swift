@@ -8,6 +8,8 @@
 #define DDRREADPORT2 DDRB
 #define READPORT2    PINB
 
+#define ANALOGPORT  DDRF
+
 #define PARKLIGHT   1<<0
 #define FRONTLEFT   1<<1
 #define FRONTRIGHT  1<<2
@@ -46,6 +48,14 @@ unsigned char val_fan_last = 1;
 unsigned char val_ignition = 0;
 unsigned char val_ignition_last = 1;
 
+// Analog values
+unsigned char adc_battery = 0;
+unsigned char adc_battery_last = 0;
+unsigned char adc_cts = 0;
+unsigned char adc_cts_last = 0;
+unsigned char adc_lpg_level = 0;
+unsigned char adc_lpg_level_last = 0;
+
 // declare flags
 unsigned char flag_parklight_update = 0;
 unsigned char flag_frontleft_update = 0;
@@ -68,18 +78,24 @@ void check_doors(void);
 void check_doors_indicator(void);
 void check_alternator(void);
 void check_handbrake(void);
+void check_oil(void);
+void check_fan(void);
 
 
 ISR(TIMER1_COMPA_vect)
 {
-
     PORTB |= TIMEMARKER1;
     read_values();
+    adc_read_values();
     check_parklight();
     check_doors();
     check_alternator();
     check_handbrake();
-
+    check_oil();
+    check_fan();
+    adc_check_cts();
+    adc_check_lpg_level();
+    adc_check_battery();
     //_delay_ms(50);
     read_last_values();
     PORTB &= ~TIMEMARKER1;
@@ -124,7 +140,35 @@ void interrupts_init(void)
     sei();
 }
 
+void analog_init(void)
+{
+    // Analog port is configured as inputs
+    ANALOGPORT |= 0x00;
+    // ADLAR is set 1 and ADC0 is used
+    ADMUX |= 0x20;
+    // Prescaler is 128 = 125kHz
+    ADCSRA |= 0x87;
+}
+// Read battery
+void adc_read_values(void)
+{
+    ADMUX = 0x20; // Read ADC0 pin
+    ADCSRA |= 1 << ADSC; // adc start
+    while(ADCSRA & (1 << ADSC)); // wait for adc
+    adc_battery = ADCH;
 
+    ADMUX = 0x21; // Read ADC1 pin
+    ADCSRA |= 1 << ADSC;
+    while(ADCSRA & (1 << ADSC)); // wait for adc
+    adc_cts = ADCH;
+
+    ADMUX = 0x22; // Read ADC2 pin
+    ADCSRA |= 1 << ADSC;
+    while(ADCSRA & (1 << ADSC)); // wait for adc
+    adc_lpg_level = ADCH;
+}
+
+// Read digital values
 void read_values(void)
 {
     val_parklight = READPORT1 & PARKLIGHT;
@@ -139,7 +183,7 @@ void read_values(void)
     val_fan = READPORT2 & FAN;
     val_ignition = READPORT2 & IGNITION;
 }
-
+// Read last digital values
 void read_last_values(void)
 {
     val_parklight_last = val_parklight;
@@ -153,6 +197,9 @@ void read_last_values(void)
     val_handbrake_last = val_handbrake;
     val_fan_last = val_fan;
     val_ignition_last = val_ignition;
+    adc_battery_last = adc_battery;
+    adc_cts_last = adc_cts;
+    adc_lpg_level_last = adc_lpg_level;
 }
 
 void check_parklight(void)
@@ -236,5 +283,54 @@ void check_handbrake(void)
             gui_handbrake(1);
         else
             gui_handbrake(0);
+    }
+}
+
+void check_oil(void)
+{
+    if (val_oil != val_oil_last)
+    {
+        if (val_oil == OIL)
+            gui_oil(1);
+        else
+            gui_oil(0);
+    }
+}
+
+void check_fan(void)
+{
+    if (val_fan != val_fan_last)
+    {
+        if (val_fan == FAN)
+            gui_fan(1);
+        else
+            gui_fan(0);
+    }
+}
+
+void adc_check_battery(void)
+{
+    if ((adc_battery != adc_battery_last))
+    {
+        gui_battery_voltage(adc_battery);
+    }
+}
+
+void adc_check_cts(void)
+{
+
+    if ((adc_cts+1)/16 != ((adc_cts_last+1) / 16))
+    {
+        gui_cts(adc_cts);
+    }
+}
+
+void adc_check_lpg_level(void)
+{
+    static unsigned char cnt = 0;
+
+    if ((adc_lpg_level+1)/16 != ((adc_lpg_level_last+1) / 16))
+    {
+        gui_lpg_level(adc_lpg_level);
     }
 }

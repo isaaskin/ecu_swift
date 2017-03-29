@@ -5,6 +5,7 @@ int main(void)
 {
     ports_init();
     gui_init();
+    analog_init();
     interrupts_init();
     //gui_test();
 

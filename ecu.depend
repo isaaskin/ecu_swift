@@ -50,19 +50,19 @@
 	<avr/io.h>
 	<avr/interrupt.h>
 
-1487625517 source:c:\git\ecu_swift\core.c
+1490808215 source:c:\git\ecu_swift\core.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
 
-1487625472 source:c:\git\ecu_swift\display.c
+1490808184 source:c:\git\ecu_swift\display.c
 	<avr/io.h>
 	"logo.h"
 	<util/delay.h>
 	"arial_bold_14.h"
 	<stdlib.h>
 
-1487625472 c:\git\ecu_swift\logo.h
+1487883278 c:\git\ecu_swift\logo.h
 	<avr/pgmspace.h>
 
 1218031844 c:\git\ecu_swift\arial_bold_14.h
@@ -90,7 +90,7 @@
 1218031844 c:\git\ecu_swift\lcd_graphics.h
 	<inttypes.h>
 
-1487624610 source:c:\git\ecu_swift\main.c
+1490535310 source:c:\git\ecu_swift\main.c
 	<avr/io.h>
 	<util/delay.h>
 
